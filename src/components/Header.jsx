@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Wifi, WifiOff, Signal } from 'lucide-react';
+import { use } from 'react';
 
 export default function Header({ userRole, networkSpeed, isOnline, onLogout, setNetworkSpeed }) {
+  const [dynamicNetworkSpeed, setDynamicNetworkSpeed] = React.useState(Number);
+
+  
+  
+
   const getSpeedColor = () => {
+
+
     switch(networkSpeed) {
       case '2g': return 'text-red-600';
       case '3g': return 'text-yellow-600';
@@ -10,6 +18,18 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout, set
       default: return 'text-gray-600';
     }
   };
+
+  useEffect(() => {
+  const dynamicNetworkSpeed = () => {
+    setTimeout(() => {
+      const speeds = ['2', '3', '4'];
+      const randomSpeed = speeds[Math.floor(Math.random() * speeds.length)] + ' mb/s';
+      setDynamicNetworkSpeed(randomSpeed);
+    }, 2000);
+    return dynamicNetworkSpeed;
+  }
+  dynamicNetworkSpeed();
+}, [dynamicNetworkSpeed]);
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -33,7 +53,13 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout, set
               {isOnline ? networkSpeed : 'Offline'}
             </span>
           </div>
-          <div className="text-sm">
+
+          <div>
+            <span>Current Speed:</span>
+            <span className={`ml-1 font-medium ${getSpeedColor()}`}> {dynamicNetworkSpeed}</span>
+          </div>
+          <span>Simulate Network</span>
+          <div className="text-sm w-20 flex items-center justify-center border border-gray-700 rounded-md px-2 py-1">
             <select value={networkSpeed} onChange={(e) => setNetworkSpeed(e.target.value)} className="font-medium text-gray-600 bg-transparent border-none">
               <option value="2g">2G</option>
               <option value="3g">3G</option>
@@ -42,7 +68,7 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout, set
           </div>
           <button
             onClick={onLogout}
-            className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+            className="text-xl text-gray-600 hover:text-gray-900 font-medium" 
           >
             Logout
           </button>

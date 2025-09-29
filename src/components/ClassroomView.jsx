@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Volume2, VolumeX, Play, Pause, ChevronRight, MessageSquare } from 'lucide-react';
 import { getSlides } from '../api/slides';
 import Notes from './Notes';
+import VideoPlayer from './VideoPlayer';
+import Whiteboard from './Whiteboard';
+import AudioPlayer from './AudioPlayer';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function ClassroomView({ classData, userRole, networkSpeed, onBack }) {
   const [slides, setSlides] = useState([]);
@@ -15,6 +19,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
   ]);
   const [newMessage, setNewMessage] = useState('');
   const [activeTab, setActiveTab] = useState('chat');
+  const { t } = useLanguage();
 
   useEffect(() => {
     getSlides().then(setSlides);
@@ -34,28 +39,23 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
         className="mb-4 text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
       >
         <ChevronRight className="w-4 h-4 rotate-180" />
-        <span>Back to Dashboard</span>
+        <span>{t('back')}</span>
       </button>
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Main Content Area */}
         <div className="lg:col-span-2 space-y-4">
-          {/* Video component will go here */}
+          {/* Video Player */}
           {(networkSpeed === '3g' || networkSpeed === '4g') && (
-            <div className="bg-white rounded-lg shadow-md p-8">
-              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500">Video stream will be here</p>
-              </div>
-            </div>
+            <VideoPlayer 
+              videoId={classData.videoId} 
+              title={classData.title} 
+            />
           )}
 
-          {/* Whiteboard component will go here */}
+          {/* Whiteboard */}
           {networkSpeed === '4g' && (
-            <div className="bg-white rounded-lg shadow-md p-8">
-              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500">Whiteboard will be here</p>
-              </div>
-            </div>
+            <Whiteboard />
           )}
 
           {/* Slide Display */}
@@ -76,7 +76,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
                 disabled={currentSlide === 0}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Previous
+                {t('previous')}
               </button>
               
               <span className="text-sm text-gray-600">
@@ -88,11 +88,14 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
                 disabled={currentSlide === slides.length - 1}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Next
+                {t('next')}
               </button>
             </div>
           </div>
 
+          {/* Audio Player */}
+          <AudioPlayer />
+          
           {/* Audio Controls */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between">
@@ -200,7 +203,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
                 <MessageSquare className="w-5 h-5" />
-                <span>Q&A Chat</span>
+                <span>{t('chat')}</span>
               </h3>
               
               <div className="h-64 overflow-y-auto mb-4 space-y-3">
@@ -225,7 +228,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
                   onClick={handleSendMessage}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                 >
-                  Send
+                  {t('send')}
                 </button>
               </div>
             </div>

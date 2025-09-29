@@ -3,11 +3,13 @@ import { Users, MessageSquare, XCircle } from 'lucide-react';
 import StudentList from './StudentList';
 import ChatWindow from './ChatWindow';
 import LectureControls from './LectureControls';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const LiveLectureView = ({ classData, onEndLecture }) => {
   const [students, setStudents] = useState(classData.students);
   const [messages, setMessages] = useState(classData.chatMessages);
   const [raisedHands, setRaisedHands] = useState([]);
+  const { t } = useLanguage();
 
   const handleMuteStudent = (studentId) => {
     setStudents(prevStudents =>

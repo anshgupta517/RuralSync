@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Modal = ({ isOpen, onClose, children }) => {
+  const { t } = useLanguage();
   if (!isOpen) return null;
 
   return (

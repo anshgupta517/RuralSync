@@ -7,16 +7,16 @@ export const MOCK_INSTRUCTORS = [
 
 
 export const MOCK_CLASSES = [
-  { id: 1, title: 'Introduction to AI', instructor: 'Dr. Sharma', instructorId: 1, time: '10:00 AM', isLive: true, students: 45, subject: 'Artificial Intelligence', chatMessages: [] },
-  { id: 2, title: 'VLSI Design Basics', instructor: 'Prof. Kumar', instructorId: 2, time: '02:00 PM', isLive: false, students: 32, subject: 'Electronics', chatMessages: [] },
-  { id: 3, title: 'Solar Energy Systems', instructor: 'Dr. Patel', instructorId: 3, time: '04:00 PM', isLive: false, students: 28, subject: 'Energy', chatMessages: [] },
-  { id: 4, title: 'Machine Learning', instructor: 'Dr. Sharma', instructorId: 1, time: '11:00 AM', isLive: false, students: 52, subject: 'Artificial Intelligence', chatMessages: [] },
-  { id: 5, title: 'Digital Circuits', instructor: 'Prof. Kumar', instructorId: 2, time: '03:00 PM', isLive: true, students: 41, subject: 'Electronics', chatMessages: [] },
-  { id: 6, title: 'Wind Turbines', instructor: 'Dr. Patel', instructorId: 3, time: '05:00 PM', isLive: false, students: 35, subject: 'Energy', chatMessages: [] },
-  { id: 7, title: 'Neural Networks', instructor: 'Dr. Sharma', instructorId: 1, time: '09:00 AM', isLive: false, students: 60, subject: 'Artificial Intelligence', chatMessages: [] },
-  { id: 8, title: 'Advanced VLSI', instructor: 'Prof. Kumar', instructorId: 2, time: '01:00 PM', isLive: false, students: 38, subject: 'Electronics', chatMessages: [] },
-  { id: 9, title: 'Photovoltaic Systems', instructor: 'Dr. Patel', instructorId: 3, time: '03:00 PM', isLive: false, students: 31, subject: 'Energy', chatMessages: [] },
-  { id: 10, title: 'Deep Learning', instructor: 'Dr. Sharma', instructorId: 1, time: '12:00 PM', isLive: true, students: 65, subject: 'Artificial Intelligence', chatMessages: [] }
+  { id: 1, title: 'Introduction to AI', instructor: 'Dr. Sharma', instructorId: 1, time: '10:00 AM', isLive: true, students: 45, subject: 'Artificial Intelligence', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 2, title: 'VLSI Design Basics', instructor: 'Prof. Kumar', instructorId: 2, time: '02:00 PM', isLive: false, students: 32, subject: 'Electronics', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 3, title: 'Solar Energy Systems', instructor: 'Dr. Patel', instructorId: 3, time: '04:00 PM', isLive: false, students: 28, subject: 'Energy', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 4, title: 'Machine Learning', instructor: 'Dr. Sharma', instructorId: 1, time: '11:00 AM', isLive: false, students: 52, subject: 'Artificial Intelligence', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 5, title: 'Digital Circuits', instructor: 'Prof. Kumar', instructorId: 2, time: '03:00 PM', isLive: true, students: 41, subject: 'Electronics', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 6, title: 'Wind Turbines', instructor: 'Dr. Patel', instructorId: 3, time: '05:00 PM', isLive: false, students: 35, subject: 'Energy', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 7, title: 'Neural Networks', instructor: 'Dr. Sharma', instructorId: 1, time: '09:00 AM', isLive: false, students: 60, subject: 'Artificial Intelligence', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 8, title: 'Advanced VLSI', instructor: 'Prof. Kumar', instructorId: 2, time: '01:00 PM', isLive: false, students: 38, subject: 'Electronics', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 9, title: 'Photovoltaic Systems', instructor: 'Dr. Patel', instructorId: 3, time: '03:00 PM', isLive: false, students: 31, subject: 'Energy', chatMessages: [], videoId: 'rJ1Qao09CFI' },
+  { id: 10, title: 'Deep Learning', instructor: 'Dr. Sharma', instructorId: 1, time: '12:00 PM', isLive: true, students: 65, subject: 'Artificial Intelligence', chatMessages: [], videoId: 'rJ1Qao09CFI' }
 ];
 
 export const MOCK_SLIDES = [

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Wifi, Users, BarChart3 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function LoginScreen({ onLogin }) {
   const [role, setRole] = useState('student');
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center p-4">
@@ -11,13 +13,13 @@ export default function LoginScreen({ onLogin }) {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
             <Wifi className="w-8 h-8 text-blue-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Rural Classroom</h1>
-          <p className="text-gray-600">Low-bandwidth virtual learning</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('appTitle')}</h1>
+          <p className="text-gray-600">{t('loginTitle')}</p>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Role</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t('loginStudent')}</label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => setRole('student')}
@@ -28,7 +30,7 @@ export default function LoginScreen({ onLogin }) {
                 }`}
               >
                 <Users className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-                <div className="font-medium">Student</div>
+                <div className="font-medium">{t('loginStudent')}</div>
               </button>
               <button
                 onClick={() => setRole('instructor')}
@@ -39,7 +41,7 @@ export default function LoginScreen({ onLogin }) {
                 }`}
               >
                 <BarChart3 className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-                <div className="font-medium">Faculty</div>
+                <div className="font-medium">{t('loginInstructor')}</div>
               </button>
             </div>
           </div>
@@ -48,7 +50,7 @@ export default function LoginScreen({ onLogin }) {
             onClick={() => onLogin(role)}
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
           >
-            Enter as {role === 'student' ? 'Student' : 'instructor'}
+            {role === 'student' ? t('loginStudent') : t('loginInstructor')}
           </button>
 
           <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">

@@ -4,10 +4,12 @@ import { getClasses } from '../api/classes';
 import Stats from './Stats';
 import Modal from './Modal';
 import ScheduleLectureForm from './ScheduleLectureForm';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Dashboard({ userRole, onSelectClass, onViewRecordings, currentUser }) {
   const [classes, setClasses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     getClasses().then(allClasses => {
@@ -62,7 +64,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
         {classData.isLive && (
           <span className="flex items-center space-x-1 bg-red-100 text-red-700 text-xs font-medium px-2 py-1 rounded-full">
             <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
-            <span>LIVE</span>
+            <span>{t('live')}</span>
           </span>
         )}
       </div>
@@ -86,7 +88,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
             onClick={() => handleToggleLive(classData.id)}
             className={`w-full text-white py-2 rounded-lg font-medium transition flex items-center justify-center space-x-2 ${classData.isLive ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}`}>
             {classData.isLive ? <StopCircle className="w-4 h-4" /> : <PlayCircle className="w-4 h-4" />}
-            <span>{classData.isLive ? 'End Lecture' : 'Go Live'}</span>
+            <span>{classData.isLive ? t('endLecture') : 'Go Live'}</span>
           </button>
           <button 
             onClick={() => handleCustomize(classData.id)}
@@ -100,7 +102,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
           onClick={() => onSelectClass(classData)} 
           className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition flex items-center justify-center space-x-2"
         >
-          <span>{classData.isLive ? 'Join Now' : 'View Details'}</span>
+          <span>{classData.isLive ? t('joinClass') : t('viewRecordings')}</span>
           <ChevronRight className="w-4 h-4" />
         </button>
       )}
@@ -112,10 +114,10 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            {userRole === 'student' ? 'My Classes' : currentUser && `Welcome, ${currentUser.name}`}
+            {userRole === 'student' ? t('yourClasses') : currentUser && `Welcome, ${currentUser.name}`}
           </h2>
           <p className="text-gray-600">
-            {userRole === 'student' ? 'Join live classes or access recordings' : 'Manage your teaching sessions'}
+            {userRole === 'student' ? t('dashboardTitle') : t('scheduleLecture')}
           </p>
         </div>
         {userRole === 'instructor' && (
@@ -123,7 +125,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2">
             <PlusCircle className="w-5 h-5" />
-            <span>Schedule Lecture</span>
+            <span>{t('scheduleLecture')}</span>
           </button>
         )}
       </div>
@@ -131,13 +133,13 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
       {userRole === 'instructor' && (
         <>
           <div className="mb-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Live Sessions</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('live')}</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {liveClasses.map(renderClassCard)}
             </div>
           </div>
           <div className="mb-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Upcoming & Past Lectures</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('lectureTitle')}</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pastClasses.map(renderClassCard)}
             </div>
@@ -172,7 +174,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
         className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition flex items-center space-x-2"
       >
         <Download className="w-5 h-5" />
-        <span>View All Recordings</span>
+        <span>{t('viewRecordings')}</span>
       </button>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

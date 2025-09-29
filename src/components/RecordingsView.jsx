@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Download, ChevronRight } from 'lucide-react';
 import { getRecordings } from '../api/recordings';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function RecordingsView({ onBack, networkSpeed }) {
   const [recordings, setRecordings] = useState([]);
   const [downloading, setDownloading] = useState({});
+  const { t } = useLanguage();
 
   useEffect(() => {
     getRecordings().then(setRecordings);
@@ -34,10 +36,10 @@ export default function RecordingsView({ onBack, networkSpeed }) {
         className="mb-4 text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
       >
         <ChevronRight className="w-4 h-4 rotate-180" />
-        <span>Back to Dashboard</span>
+        <span>{t('back')}</span>
       </button>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Recorded Lectures</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('recordingsTitle')}</h2>
 
       {Object.entries(groupedRecordings).map(([subject, recordings]) => (
         <div key={subject} className="mb-8">
@@ -60,7 +62,7 @@ export default function RecordingsView({ onBack, networkSpeed }) {
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Download className="w-4 h-4" />
-                  <span>{downloading[recording.id] ? 'Downloading...' : 'Download'}</span>
+                  <span>{downloading[recording.id] ? 'Downloading...' : t('download')}</span>
                 </button>
               </div>
             ))}

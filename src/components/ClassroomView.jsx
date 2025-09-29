@@ -171,7 +171,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
               <span className="font-bold text-gray-900">{classData.students}</span>
             </div>
 
-            {!showPoll && userRole === 'faculty' && (
+            {!showPoll && userRole === 'instructor' && (
               <button
                 onClick={() => setShowPoll(true)}
                 className="w-full bg-green-600 text-white py-2 rounded-lg font-medium hover:bg-green-700 transition"

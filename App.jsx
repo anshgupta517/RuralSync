@@ -4,18 +4,36 @@ import Header from './src/components/Header';
 import Dashboard from './src/components/Dashboard';
 import ClassroomView from './src/components/ClassroomView';
 import RecordingsView from './src/components/RecordingsView';
+import LiveLectureView from './src/components/LiveLectureView';
 import getBandwidth from './src/utils/bandwidth';
+import { currentUser } from './src/data/mockData';
 
 export default function RuralClassroomApp() {
   const [userRole, setUserRole] = useState(null);
   const [currentView, setCurrentView] = useState('login');
   const [selectedClass, setSelectedClass] = useState(null);
+  const [liveLecture, setLiveLecture] = useState(null);
   const [networkSpeed, setNetworkSpeed] = useState('3g');
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
     getBandwidth().then(setNetworkSpeed);
   }, []);
+
+  const handleSelectClass = (classData) => {
+    if (classData.isLive && userRole === 'instructor') {
+      setLiveLecture(classData);
+      setCurrentView('live-lecture');
+    } else {
+      setSelectedClass(classData);
+      setCurrentView('classroom');
+    }
+  };
+
+  const handleEndLecture = () => {
+    setLiveLecture(null);
+    setCurrentView('dashboard');
+  };
 
   if (currentView === 'login') {
     return <LoginScreen onLogin={(role) => {
@@ -40,11 +58,9 @@ export default function RuralClassroomApp() {
       {currentView === 'dashboard' && (
         <Dashboard 
           userRole={userRole}
-          onSelectClass={(classData) => {
-            setSelectedClass(classData);
-            setCurrentView('classroom');
-          }}
+          onSelectClass={handleSelectClass}
           onViewRecordings={() => setCurrentView('recordings')}
+          currentUser={userRole === 'instructor' ? currentUser : null}
         />
       )}
 
@@ -64,6 +80,12 @@ export default function RuralClassroomApp() {
         />
       )}
 
+      {currentView === 'live-lecture' && (
+        <LiveLectureView 
+          classData={liveLecture}
+          onEndLecture={handleEndLecture}
+        />
+      )}
 
     </div>
   );

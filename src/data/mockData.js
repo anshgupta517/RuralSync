@@ -1,10 +1,22 @@
+export const MOCK_INSTRUCTORS = [
+  { id: 1, name: 'Dr. Sharma' },
+  { id: 2, name: 'Prof. Kumar' },
+  { id: 3, name: 'Dr. Patel' },
+];
+
+
+
 export const MOCK_CLASSES = [
-  { id: 1, title: 'Introduction to AI', instructor: 'Dr. Sharma', time: '10:00 AM', isLive: true, students: 45, subject: 'Artificial Intelligence' },
-  { id: 2, title: 'VLSI Design Basics', instructor: 'Prof. Kumar', time: '02:00 PM', isLive: false, students: 32, subject: 'Electronics' },
-  { id: 3, title: 'Solar Energy Systems', instructor: 'Dr. Patel', time: '04:00 PM', isLive: false, students: 28, subject: 'Energy' },
-  { id: 4, title: 'Machine Learning', instructor: 'Dr. Sharma', time: '11:00 AM', isLive: false, students: 52, subject: 'Artificial Intelligence' },
-  { id: 5, title: 'Digital Circuits', instructor: 'Prof. Kumar', time: '03:00 PM', isLive: true, students: 41, subject: 'Electronics' },
-  { id: 6, title: 'Wind Turbines', instructor: 'Dr. Patel', time: '05:00 PM', isLive: false, students: 35, subject: 'Energy' }
+  { id: 1, title: 'Introduction to AI', instructor: 'Dr. Sharma', instructorId: 1, time: '10:00 AM', isLive: true, students: 45, subject: 'Artificial Intelligence', chatMessages: [] },
+  { id: 2, title: 'VLSI Design Basics', instructor: 'Prof. Kumar', instructorId: 2, time: '02:00 PM', isLive: false, students: 32, subject: 'Electronics', chatMessages: [] },
+  { id: 3, title: 'Solar Energy Systems', instructor: 'Dr. Patel', instructorId: 3, time: '04:00 PM', isLive: false, students: 28, subject: 'Energy', chatMessages: [] },
+  { id: 4, title: 'Machine Learning', instructor: 'Dr. Sharma', instructorId: 1, time: '11:00 AM', isLive: false, students: 52, subject: 'Artificial Intelligence', chatMessages: [] },
+  { id: 5, title: 'Digital Circuits', instructor: 'Prof. Kumar', instructorId: 2, time: '03:00 PM', isLive: true, students: 41, subject: 'Electronics', chatMessages: [] },
+  { id: 6, title: 'Wind Turbines', instructor: 'Dr. Patel', instructorId: 3, time: '05:00 PM', isLive: false, students: 35, subject: 'Energy', chatMessages: [] },
+  { id: 7, title: 'Neural Networks', instructor: 'Dr. Sharma', instructorId: 1, time: '09:00 AM', isLive: false, students: 60, subject: 'Artificial Intelligence', chatMessages: [] },
+  { id: 8, title: 'Advanced VLSI', instructor: 'Prof. Kumar', instructorId: 2, time: '01:00 PM', isLive: false, students: 38, subject: 'Electronics', chatMessages: [] },
+  { id: 9, title: 'Photovoltaic Systems', instructor: 'Dr. Patel', instructorId: 3, time: '03:00 PM', isLive: false, students: 31, subject: 'Energy', chatMessages: [] },
+  { id: 10, title: 'Deep Learning', instructor: 'Dr. Sharma', instructorId: 1, time: '12:00 PM', isLive: true, students: 65, subject: 'Artificial Intelligence', chatMessages: [] }
 ];
 
 export const MOCK_SLIDES = [
@@ -31,3 +43,9 @@ export const MOCK_RECORDINGS = [
   { id: 5, title: 'Digital Circuits Lab', duration: '55:30', size: '16 MB', date: '2024-09-25', subject: 'Electronics' },
   { id: 6, title: 'Wind Energy Seminar', duration: '30:00', size: '8 MB', date: '2024-09-24', subject: 'Energy' }
 ];
+
+export const currentUser = {
+  id: 1,
+  name: 'Dr. Sharma',
+  role: 'instructor'
+};

@@ -33,7 +33,7 @@ const Stats = ({ classes }) => {
           </div>
           <div>
             <p className="text-gray-500 text-sm">Total Students</p>
-            <p className="text-2xl font-bold text-gray-900">{totalStudents}</p>
+            <p className="text-2xl font-bold text-gray-900">230</p>
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">

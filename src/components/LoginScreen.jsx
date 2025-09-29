@@ -31,9 +31,9 @@ export default function LoginScreen({ onLogin }) {
                 <div className="font-medium">Student</div>
               </button>
               <button
-                onClick={() => setRole('faculty')}
+                onClick={() => setRole('instructor')}
                 className={`p-4 border-2 rounded-lg transition ${
-                  role === 'faculty' 
+                  role === 'instructor' 
                     ? 'border-blue-600 bg-blue-50' 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
@@ -48,7 +48,7 @@ export default function LoginScreen({ onLogin }) {
             onClick={() => onLogin(role)}
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
           >
-            Enter as {role === 'student' ? 'Student' : 'Faculty'}
+            Enter as {role === 'student' ? 'Student' : 'instructor'}
           </button>
 
           <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">

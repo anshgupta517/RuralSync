@@ -7,6 +7,7 @@ import RecordingsView from './src/components/RecordingsView';
 import LiveLectureView from './src/components/LiveLectureView';
 import getBandwidth from './src/utils/bandwidth';
 import { currentUser } from './src/data/mockData';
+import { LanguageProvider } from './src/contexts/LanguageContext';
 
 export default function RuralClassroomApp() {
   const [userRole, setUserRole] = useState(null);
@@ -36,57 +37,63 @@ export default function RuralClassroomApp() {
   };
 
   if (currentView === 'login') {
-    return <LoginScreen onLogin={(role) => {
-      setUserRole(role);
-      setCurrentView('dashboard');
-    }} />;
+    return (
+      <LanguageProvider>
+        <LoginScreen onLogin={(role) => {
+          setUserRole(role);
+          setCurrentView('dashboard');
+        }} />
+      </LanguageProvider>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header 
-        userRole={userRole} 
-        networkSpeed={networkSpeed}
-        isOnline={isOnline}
-        onLogout={() => {
-          setCurrentView('login');
-          setUserRole(null);
-        }}
-        setNetworkSpeed={setNetworkSpeed}
-      />
-      
-      {currentView === 'dashboard' && (
-        <Dashboard 
-          userRole={userRole}
-          onSelectClass={handleSelectClass}
-          onViewRecordings={() => setCurrentView('recordings')}
-          currentUser={userRole === 'instructor' ? currentUser : null}
-        />
-      )}
-
-      {currentView === 'classroom' && (
-        <ClassroomView 
-          classData={selectedClass}
-          userRole={userRole}
+    <LanguageProvider>
+      <div className="min-h-screen bg-gray-50">
+        <Header 
+          userRole={userRole} 
           networkSpeed={networkSpeed}
-          onBack={() => setCurrentView('dashboard')}
+          isOnline={isOnline}
+          onLogout={() => {
+            setCurrentView('login');
+            setUserRole(null);
+          }}
+          setNetworkSpeed={setNetworkSpeed}
         />
-      )}
+        
+        {currentView === 'dashboard' && (
+          <Dashboard 
+            userRole={userRole}
+            onSelectClass={handleSelectClass}
+            onViewRecordings={() => setCurrentView('recordings')}
+            currentUser={userRole === 'instructor' ? currentUser : null}
+          />
+        )}
 
-      {currentView === 'recordings' && (
-        <RecordingsView 
-          onBack={() => setCurrentView('dashboard')}
-          networkSpeed={networkSpeed}
-        />
-      )}
+        {currentView === 'classroom' && (
+          <ClassroomView 
+            classData={selectedClass}
+            userRole={userRole}
+            networkSpeed={networkSpeed}
+            onBack={() => setCurrentView('dashboard')}
+          />
+        )}
 
-      {currentView === 'live-lecture' && (
-        <LiveLectureView 
-          classData={liveLecture}
-          onEndLecture={handleEndLecture}
-        />
-      )}
+        {currentView === 'recordings' && (
+          <RecordingsView 
+            onBack={() => setCurrentView('dashboard')}
+            networkSpeed={networkSpeed}
+          />
+        )}
 
-    </div>
+        {currentView === 'live-lecture' && (
+          <LiveLectureView 
+            classData={liveLecture}
+            onEndLecture={handleEndLecture}
+          />
+        )}
+
+      </div>
+    </LanguageProvider>
   );
 }

@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
-import { Wifi, WifiOff, Signal } from 'lucide-react';
-import { use } from 'react';
+import { Wifi, WifiOff, Signal, Languages } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Header({ userRole, networkSpeed, isOnline, onLogout, setNetworkSpeed }) {
   const [dynamicNetworkSpeed, setDynamicNetworkSpeed] = React.useState(Number);
-
-  
-  
+  const { language, toggleLanguage, t } = useLanguage();
 
   const getSpeedColor = () => {
-
-
     switch(networkSpeed) {
       case '2g': return 'text-red-600';
       case '3g': return 'text-yellow-600';
@@ -37,8 +33,8 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout, set
         <div className="flex items-center space-x-3">
           <Wifi className="w-6 h-6 text-blue-600" />
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Rural Classroom</h1>
-            <p className="text-xs text-gray-500">{userRole === 'student' ? 'Student Portal' : 'Faculty Portal'}</p>
+            <h1 className="text-xl font-bold text-gray-900">{t('appTitle')}</h1>
+            <p className="text-xs text-gray-500">{userRole === 'student' ? t('studentPortal') : t('facultyPortal')}</p>
           </div>
         </div>
 
@@ -58,7 +54,7 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout, set
             <span>Current Speed:</span>
             <span className={`ml-1 font-medium ${getSpeedColor()}`}> {dynamicNetworkSpeed}</span>
           </div>
-          <span>Simulate Network</span>
+          <span>{t('simulateNetwork')}</span>
           <div className="text-sm w-20 flex items-center justify-center border border-gray-700 rounded-md px-2 py-1">
             <select value={networkSpeed} onChange={(e) => setNetworkSpeed(e.target.value)} className="font-medium text-gray-600 bg-transparent border-none">
               <option value="2g">2G</option>
@@ -67,10 +63,17 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout, set
             </select>
           </div>
           <button
+            onClick={toggleLanguage}
+            className="flex items-center space-x-1 text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-md"
+          >
+            <Languages className="w-4 h-4" />
+            <span>{language === 'hi' ? 'EN' : 'हिंदी'}</span>
+          </button>
+          <button
             onClick={onLogout}
             className="text-xl text-gray-600 hover:text-gray-900 font-medium" 
           >
-            Logout
+            {t('logout')}
           </button>
         </div>
       </div>

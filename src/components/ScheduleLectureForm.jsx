@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ScheduleLectureForm = ({ onSchedule, onClose }) => {
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
   const [time, setTime] = useState('');
+  const { t } = useLanguage();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,9 +15,9 @@ const ScheduleLectureForm = ({ onSchedule, onClose }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold mb-6">Schedule a New Lecture</h2>
+      <h2 className="text-2xl font-bold mb-6">{t('scheduleLecture')}</h2>
       <div className="mb-4">
-        <label htmlFor="title" className="block text-gray-700 font-medium mb-2">Lecture Title</label>
+        <label htmlFor="title" className="block text-gray-700 font-medium mb-2">{t('lectureTitle')}</label>
         <input
           type="text"
           id="title"
@@ -26,7 +28,7 @@ const ScheduleLectureForm = ({ onSchedule, onClose }) => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">Subject</label>
+        <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">{t('subject')}</label>
         <input
           type="text"
           id="subject"
@@ -37,7 +39,7 @@ const ScheduleLectureForm = ({ onSchedule, onClose }) => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="time" className="block text-gray-700 font-medium mb-2">Time</label>
+        <label htmlFor="time" className="block text-gray-700 font-medium mb-2">{t('time')}</label>
         <input
           type="time"
           id="time"
@@ -49,10 +51,10 @@ const ScheduleLectureForm = ({ onSchedule, onClose }) => {
       </div>
       <div className="flex justify-end mt-6">
         <button type="button" onClick={onClose} className="mr-4 px-4 py-2 text-gray-600 hover:text-gray-800">
-          Cancel
+          {t('cancel')}
         </button>
         <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
-          Schedule
+          {t('schedule')}
         </button>
       </div>
     </form>

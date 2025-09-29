@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { MessageSquare, Send } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ChatWindow = ({ messages, onSendMessage }) => {
   const [newMessage, setNewMessage] = useState('');
+  const { t } = useLanguage();
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -15,7 +17,7 @@ const ChatWindow = ({ messages, onSendMessage }) => {
     <div>
       <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
         <MessageSquare className="w-5 h-5 mr-2" />
-        Chat
+        {t('chat')}
       </h4>
       <div className="h-48 overflow-y-auto border rounded-lg p-4 mb-4">
         {messages.map((message, index) => (
@@ -31,7 +33,7 @@ const ChatWindow = ({ messages, onSendMessage }) => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Type a message..."
+          placeholder={`${t('chat')}...`}
         />
         <button 
           onClick={handleSendMessage}

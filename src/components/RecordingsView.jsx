@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download, ChevronRight } from 'lucide-react';
-import { MOCK_RECORDINGS } from '../data/mockData';
+import { getRecordings } from '../api/recordings';
 
 export default function RecordingsView({ onBack, networkSpeed }) {
+  const [recordings, setRecordings] = useState([]);
   const [downloading, setDownloading] = useState({});
+
+  useEffect(() => {
+    getRecordings().then(setRecordings);
+  }, []);
 
   const handleDownload = (id) => {
     setDownloading({ ...downloading, [id]: true });
@@ -26,7 +31,7 @@ export default function RecordingsView({ onBack, networkSpeed }) {
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Recorded Lectures</h2>
 
       <div className="bg-white rounded-lg shadow-md divide-y">
-        {MOCK_RECORDINGS.map((recording) => (
+        {recordings.map((recording) => (
           <div key={recording.id} className="p-6 flex items-center justify-between hover:bg-gray-50 transition">
             <div className="flex-1">
               <h3 className="text-lg font-bold text-gray-900 mb-1">{recording.title}</h3>

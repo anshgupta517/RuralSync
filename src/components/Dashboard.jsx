@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Clock, Users, ChevronRight, Download } from 'lucide-react';
-import { MOCK_CLASSES } from '../data/mockData';
+import { getClasses } from '../api/classes';
 
 export default function Dashboard({ userRole, onSelectClass, onViewRecordings }) {
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    getClasses().then(setClasses);
+  }, []);
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -15,7 +20,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings })
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {MOCK_CLASSES.map(classData => (
+        {classes.map(classData => (
           <div 
             key={classData.id}
             className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"

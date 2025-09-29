@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Volume2, VolumeX, Play, Pause, ChevronRight, MessageSquare } from 'lucide-react';
-import { MOCK_SLIDES } from '../data/mockData';
+import { getSlides } from '../api/slides';
 
 export default function ClassroomView({ classData, userRole, networkSpeed, onBack }) {
+  const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [micActive, setMicActive] = useState(false);
@@ -12,6 +13,10 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
     { user: 'System', message: 'Welcome to the class!' },
   ]);
   const [newMessage, setNewMessage] = useState('');
+
+  useEffect(() => {
+    getSlides().then(setSlides);
+  }, []);
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -37,10 +42,10 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="aspect-video bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex flex-col items-center justify-center p-8 border-2 border-blue-100">
               <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">
-                {MOCK_SLIDES[currentSlide].content}
+                {slides.length > 0 && slides[currentSlide].content}
               </h2>
               <p className="text-gray-600 text-center whitespace-pre-line">
-                {MOCK_SLIDES[currentSlide].subtitle}
+                {slides.length > 0 && slides[currentSlide].subtitle}
               </p>
             </div>
 
@@ -55,12 +60,12 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
               </button>
               
               <span className="text-sm text-gray-600">
-                Slide {currentSlide + 1} of {MOCK_SLIDES.length}
+                Slide {currentSlide + 1} of {slides.length}
               </span>
               
               <button
-                onClick={() => setCurrentSlide(Math.min(MOCK_SLIDES.length - 1, currentSlide + 1))}
-                disabled={currentSlide === MOCK_SLIDES.length - 1}
+                onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
+                disabled={currentSlide === slides.length - 1}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next

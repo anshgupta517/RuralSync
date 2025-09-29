@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Volume2, VolumeX, Play, Pause, ChevronRight, MessageSquare } from 'lucide-react';
 import { getSlides } from '../api/slides';
+import Notes from './Notes';
 
 export default function ClassroomView({ classData, userRole, networkSpeed, onBack }) {
   const [slides, setSlides] = useState([]);
@@ -13,6 +14,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
     { user: 'System', message: 'Welcome to the class!' },
   ]);
   const [newMessage, setNewMessage] = useState('');
+  const [activeTab, setActiveTab] = useState('chat');
 
   useEffect(() => {
     getSlides().then(setSlides);
@@ -38,6 +40,24 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Main Content Area */}
         <div className="lg:col-span-2 space-y-4">
+          {/* Video component will go here */}
+          {(networkSpeed === '3g' || networkSpeed === '4g') && (
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
+                <p className="text-gray-500">Video stream will be here</p>
+              </div>
+            </div>
+          )}
+
+          {/* Whiteboard component will go here */}
+          {networkSpeed === '4g' && (
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
+                <p className="text-gray-500">Whiteboard will be here</p>
+              </div>
+            </div>
+          )}
+
           {/* Slide Display */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="aspect-video bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex flex-col items-center justify-center p-8 border-2 border-blue-100">
@@ -161,39 +181,57 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
             )}
           </div>
 
-          {/* Chat */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-              <MessageSquare className="w-5 h-5" />
-              <span>Q&A Chat</span>
-            </h3>
-            
-            <div className="h-64 overflow-y-auto mb-4 space-y-3">
-              {chatMessages.map((msg, idx) => (
-                <div key={idx} className="text-sm">
-                  <span className="font-medium text-blue-600">{msg.user}:</span>
-                  <span className="text-gray-700 ml-2">{msg.message}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex space-x-2">
-              <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Ask a question..."
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                onClick={handleSendMessage}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-              >
-                Send
-              </button>
-            </div>
+          {/* Tab switcher */}
+          <div className="flex border-b mb-4">
+            <button
+              onClick={() => setActiveTab('chat')}
+              className={`px-4 py-2 font-medium ${activeTab === 'chat' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}>
+              Q&A Chat
+            </button>
+            <button
+              onClick={() => setActiveTab('notes')}
+              className={`px-4 py-2 font-medium ${activeTab === 'notes' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}>
+              Notes
+            </button>
           </div>
+
+          {/* Chat or Notes */}
+          {activeTab === 'chat' ? (
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                <MessageSquare className="w-5 h-5" />
+                <span>Q&A Chat</span>
+              </h3>
+              
+              <div className="h-64 overflow-y-auto mb-4 space-y-3">
+                {chatMessages.map((msg, idx) => (
+                  <div key={idx} className="text-sm">
+                    <span className="font-medium text-blue-600">{msg.user}:</span>
+                    <span className="text-gray-700 ml-2">{msg.message}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  placeholder="Ask a question..."
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  onClick={handleSendMessage}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          ) : (
+            <Notes classId={classData.id} userRole={userRole} />
+          )}
         </div>
       </div>
     </div>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Wifi, WifiOff, Signal } from 'lucide-react';
 
-export default function Header({ userRole, networkSpeed, isOnline, onLogout }) {
+export default function Header({ userRole, networkSpeed, isOnline, onLogout, setNetworkSpeed }) {
   const getSpeedColor = () => {
     switch(networkSpeed) {
-      case '2G': return 'text-red-600';
-      case '3G': return 'text-yellow-600';
-      case '4G': return 'text-green-600';
+      case '2g': return 'text-red-600';
+      case '3g': return 'text-yellow-600';
+      case '4g': return 'text-green-600';
       default: return 'text-gray-600';
     }
   };
@@ -32,6 +32,13 @@ export default function Header({ userRole, networkSpeed, isOnline, onLogout }) {
             <span className={`text-sm font-medium ${getSpeedColor()}`}>
               {isOnline ? networkSpeed : 'Offline'}
             </span>
+          </div>
+          <div className="text-sm">
+            <select value={networkSpeed} onChange={(e) => setNetworkSpeed(e.target.value)} className="font-medium text-gray-600 bg-transparent border-none">
+              <option value="2g">2G</option>
+              <option value="3g">3G</option>
+              <option value="4g">4G</option>
+            </select>
           </div>
           <button
             onClick={onLogout}

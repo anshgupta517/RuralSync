@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginScreen from './src/components/LoginScreen';
 import Header from './src/components/Header';
 import Dashboard from './src/components/Dashboard';
 import ClassroomView from './src/components/ClassroomView';
 import RecordingsView from './src/components/RecordingsView';
-import NetworkSimulator from './src/components/NetworkSimulator';
+import getBandwidth from './src/utils/bandwidth';
 
 export default function RuralClassroomApp() {
   const [userRole, setUserRole] = useState(null);
   const [currentView, setCurrentView] = useState('login');
   const [selectedClass, setSelectedClass] = useState(null);
-  const [networkSpeed, setNetworkSpeed] = useState('3G');
+  const [networkSpeed, setNetworkSpeed] = useState('3g');
   const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    getBandwidth().then(setNetworkSpeed);
+  }, []);
 
   if (currentView === 'login') {
     return <LoginScreen onLogin={(role) => {
@@ -30,6 +34,7 @@ export default function RuralClassroomApp() {
           setCurrentView('login');
           setUserRole(null);
         }}
+        setNetworkSpeed={setNetworkSpeed}
       />
       
       {currentView === 'dashboard' && (
@@ -59,12 +64,7 @@ export default function RuralClassroomApp() {
         />
       )}
 
-      <NetworkSimulator 
-        networkSpeed={networkSpeed}
-        setNetworkSpeed={setNetworkSpeed}
-        isOnline={isOnline}
-        setIsOnline={setIsOnline}
-      />
+
     </div>
   );
 }

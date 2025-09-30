@@ -5,7 +5,7 @@ import ChatWindow from './ChatWindow';
 import LectureControls from './LectureControls';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const LiveLectureView = ({ classData, onEndLecture }) => {
+const LiveLectureView = ({ classData, onEndLecture, currentUser }) => {
   const [students, setStudents] = useState(classData.students);
   const [messages, setMessages] = useState(classData.chatMessages);
   const [raisedHands, setRaisedHands] = useState([]);
@@ -40,7 +40,7 @@ const LiveLectureView = ({ classData, onEndLecture }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 h-96 bg-black rounded-lg shadow-lg flex items-center justify-center">
+        <div className="lg:col-span-2 aspect-video bg-black rounded-lg shadow-lg flex items-center justify-center">
           {/* Placeholder for video stream */}
           <div className="text-white text-2xl">Video Stream</div>
         </div>

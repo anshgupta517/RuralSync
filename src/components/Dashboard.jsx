@@ -110,9 +110,9 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+        <div className="mb-4 sm:mb-0">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             {userRole === 'student' ? t('yourClasses') : currentUser && `Welcome, ${currentUser.name}`}
           </h2>
@@ -123,9 +123,10 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
         {userRole === 'instructor' && (
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2">
+            className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2">
             <PlusCircle className="w-5 h-5" />
-            <span>{t('scheduleLecture')}</span>
+            <span className="hidden sm:inline">{t('scheduleLecture')}</span>
+            <span className="sm:hidden">{t('new')}</span>
           </button>
         )}
       </div>
@@ -134,13 +135,13 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
         <>
           <div className="mb-8">
             <h3 className="text-xl font-bold text-gray-800 mb-4">{t('live')}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {liveClasses.map(renderClassCard)}
             </div>
           </div>
           <div className="mb-8">
             <h3 className="text-xl font-bold text-gray-800 mb-4">{t('lectureTitle')}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {pastClasses.map(renderClassCard)}
             </div>
           </div>
@@ -160,7 +161,7 @@ export default function Dashboard({ userRole, onSelectClass, onViewRecordings, c
         ).map(([subject, classes]) => (
           <div key={subject} className="mb-8">
             <h3 className="text-xl font-bold text-gray-800 mb-4">{subject}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {classes.map(renderClassCard)}
             </div>
           </div>

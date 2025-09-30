@@ -90,6 +90,7 @@ export default function RuralClassroomApp() {
           <LiveLectureView 
             classData={liveLecture}
             onEndLecture={handleEndLecture}
+            currentUser={userRole === 'instructor' ? currentUser : null}
           />
         )}
 

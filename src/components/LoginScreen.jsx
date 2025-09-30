@@ -7,13 +7,13 @@ export default function LoginScreen({ onLogin }) {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <Wifi className="w-8 h-8 text-blue-600" />
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-lg shadow-xl p-6 sm:p-8 max-w-md w-full">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-100 rounded-full mb-4">
+            <Wifi className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('appTitle')}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t('appTitle')}</h1>
           <p className="text-gray-600">{t('loginTitle')}</p>
         </div>
 
@@ -23,32 +23,32 @@ export default function LoginScreen({ onLogin }) {
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => setRole('student')}
-                className={`p-4 border-2 rounded-lg transition ${
+                className={`p-3 sm:p-4 border-2 rounded-lg transition ${
                   role === 'student' 
                     ? 'border-blue-600 bg-blue-50' 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
                 <Users className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-                <div className="font-medium">{t('loginStudent')}</div>
+                <div className="font-medium text-sm sm:text-base">{t('loginStudent')}</div>
               </button>
               <button
                 onClick={() => setRole('instructor')}
-                className={`p-4 border-2 rounded-lg transition ${
+                className={`p-3 sm:p-4 border-2 rounded-lg transition ${
                   role === 'instructor' 
                     ? 'border-blue-600 bg-blue-50' 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
                 <BarChart3 className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-                <div className="font-medium">{t('loginInstructor')}</div>
+                <div className="font-medium text-sm sm:text-base">{t('loginInstructor')}</div>
               </button>
             </div>
           </div>
 
           <button
             onClick={() => onLogin(role)}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition text-base sm:text-lg"
           >
             {role === 'student' ? t('loginStudent') : t('loginInstructor')}
           </button>

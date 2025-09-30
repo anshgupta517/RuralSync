@@ -17,39 +17,39 @@ const Stats = ({ classes }) => {
 
   return (
     <div className="mt-12">
-      <h3 className="text-2xl font-bold text-gray-800 mb-6">{t('stats')}</h3>
+      <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">{t('stats')}</h3>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md flex items-center space-x-4">
           <div className="bg-blue-100 p-3 rounded-full">
             <Video className="w-6 h-6 text-blue-600" />
           </div>
           <div>
             <p className="text-gray-500 text-sm">{t('classTitle')}</p>
-            <p className="text-2xl font-bold text-gray-900">{totalClasses}</p>
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">{totalClasses}</p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md flex items-center space-x-4">
           <div className="bg-green-100 p-3 rounded-full">
             <Users className="w-6 h-6 text-green-600" />
           </div>
           <div>
             <p className="text-gray-500 text-sm">{t('students')}</p>
-            <p className="text-2xl font-bold text-gray-900">230</p>
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">230</p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md flex items-center space-x-4">
           <div className="bg-indigo-100 p-3 rounded-full">
             <BookOpen className="w-6 h-6 text-indigo-600" />
           </div>
           <div>
             <p className="text-gray-500 text-sm">{t('attendance')}</p>
-            <p className="text-2xl font-bold text-gray-900">{averageStudents}</p>
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">{averageStudents}</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
         <h4 className="text-lg font-bold text-gray-800 mb-4">{t('performance')}</h4>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>

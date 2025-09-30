@@ -18,13 +18,13 @@ const VideoPlayer = ({ videoId, title }) => {
             allowFullScreen
           ></iframe>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-white">
-            <p className="text-xl">{t('noVideoAvailable')}</p>
+          <div className="w-full h-full flex items-center justify-center text-white p-4">
+            <p className="text-lg sm:text-xl text-center">{t('noVideoAvailable')}</p>
           </div>
         )}
       </div>
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-900">{title || t('demoVideo')}</h3>
+      <div className="p-3 sm:p-4">
+        <h3 className="text-base sm:text-lg font-bold text-gray-900">{title || t('demoVideo')}</h3>
         <p className="text-gray-600 text-sm mt-1">{t('educationalContent')}</p>
       </div>
     </div>

@@ -30,7 +30,7 @@ export default function RecordingsView({ onBack, networkSpeed }) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6">
       <button
         onClick={onBack}
         className="mb-4 text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
@@ -39,17 +39,17 @@ export default function RecordingsView({ onBack, networkSpeed }) {
         <span>{t('back')}</span>
       </button>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('recordingsTitle')}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">{t('recordingsTitle')}</h2>
 
       {Object.entries(groupedRecordings).map(([subject, recordings]) => (
         <div key={subject} className="mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">{subject}</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">{subject}</h3>
           <div className="bg-white rounded-lg shadow-md divide-y">
             {recordings.map((recording) => (
-              <div key={recording.id} className="p-6 flex items-center justify-between hover:bg-gray-50 transition">
-                <div className="flex-1">
-                  <h4 className="text-lg font-bold text-gray-900 mb-1">{recording.title}</h4>
-                  <div className="flex items-center space-x-4 text-sm text-gray-600">
+              <div key={recording.id} className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between hover:bg-gray-50 transition">
+                <div className="flex-1 mb-4 sm:mb-0">
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-1">{recording.title}</h4>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-sm text-gray-600">
                     <span>Duration: {recording.duration}</span>
                     <span>Size: {recording.size}</span>
                     <span>Date: {recording.date}</span>
@@ -59,10 +59,10 @@ export default function RecordingsView({ onBack, networkSpeed }) {
                 <button
                   onClick={() => handleDownload(recording.id)}
                   disabled={downloading[recording.id]}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                 >
                   <Download className="w-4 h-4" />
-                  <span>{downloading[recording.id] ? 'Downloading...' : t('download')}</span>
+                  <span className="sm:inline">{downloading[recording.id] ? 'Downloading...' : t('download')}</span>
                 </button>
               </div>
             ))}

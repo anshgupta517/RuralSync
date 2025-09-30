@@ -33,7 +33,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6">
       <button
         onClick={onBack}
         className="mb-4 text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
@@ -42,7 +42,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
         <span>{t('back')}</span>
       </button>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content Area */}
         <div className="lg:col-span-2 space-y-4">
           {/* Video Player */}
@@ -59,9 +59,9 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
           )}
 
           {/* Slide Display */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="aspect-video bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex flex-col items-center justify-center p-8 border-2 border-blue-100">
-              <h2 className="text-3xl font-bold text-gray-900 text-center mb-4">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-8">
+            <div className="aspect-video bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg flex flex-col items-center justify-center p-4 sm:p-8 border-2 border-blue-100">
+              <h2 className="text-xl sm:text-3xl font-bold text-gray-900 text-center mb-4">
                 {slides.length > 0 && slides[currentSlide].content}
               </h2>
               <p className="text-gray-600 text-center whitespace-pre-line">
@@ -74,7 +74,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
               <button
                 onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
                 disabled={currentSlide === 0}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {t('previous')}
               </button>
@@ -86,7 +86,7 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
               <button
                 onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
                 disabled={currentSlide === slides.length - 1}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {t('next')}
               </button>
@@ -97,19 +97,19 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
           <AudioPlayer />
           
           {/* Audio Controls */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between">
+              <div className="flex items-center space-x-4 mb-4 sm:mb-0">
                 <button
                   onClick={() => setIsPlaying(!isPlaying)}
-                  className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition"
+                  className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition flex-shrink-0"
                 >
                   {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-1" />}
                 </button>
                 
                 <div className="flex-1">
                   <div className="text-sm font-medium text-gray-900 mb-1">Audio Stream</div>
-                  <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="w-full sm:w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div className="h-full bg-blue-600 w-1/3 animate-pulse" />
                   </div>
                 </div>
@@ -185,56 +185,99 @@ export default function ClassroomView({ classData, userRole, networkSpeed, onBac
           </div>
 
           {/* Tab switcher */}
-          <div className="flex border-b mb-4">
-            <button
-              onClick={() => setActiveTab('chat')}
-              className={`px-4 py-2 font-medium ${activeTab === 'chat' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}>
-              Q&A Chat
-            </button>
-            <button
-              onClick={() => setActiveTab('notes')}
-              className={`px-4 py-2 font-medium ${activeTab === 'notes' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}>
-              Notes
-            </button>
+          <div className="block lg:hidden border-b mb-4">
+            <div className="flex border-b mb-4">
+              <button
+                onClick={() => setActiveTab('chat')}
+                className={`px-4 py-2 font-medium ${activeTab === 'chat' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}>
+                Q&A Chat
+              </button>
+              <button
+                onClick={() => setActiveTab('notes')}
+                className={`px-4 py-2 font-medium ${activeTab === 'notes' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}>
+                Notes
+              </button>
+            </div>
           </div>
 
           {/* Chat or Notes */}
-          {activeTab === 'chat' ? (
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                <MessageSquare className="w-5 h-5" />
-                <span>{t('chat')}</span>
-              </h3>
-              
-              <div className="h-64 overflow-y-auto mb-4 space-y-3">
-                {chatMessages.map((msg, idx) => (
-                  <div key={idx} className="text-sm">
-                    <span className="font-medium text-blue-600">{msg.user}:</span>
-                    <span className="text-gray-700 ml-2">{msg.message}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="hidden lg:block">
+            {activeTab === 'chat' ? (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                  <MessageSquare className="w-5 h-5" />
+                  <span>{t('chat')}</span>
+                </h3>
+                
+                <div className="h-64 overflow-y-auto mb-4 space-y-3">
+                  {chatMessages.map((msg, idx) => (
+                    <div key={idx} className="text-sm">
+                      <span className="font-medium text-blue-600">{msg.user}:</span>
+                      <span className="text-gray-700 ml-2">{msg.message}</span>
+                    </div>
+                  ))}
+                </div>
 
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="Ask a question..."
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button
-                  onClick={handleSendMessage}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                  {t('send')}
-                </button>
+                <div className="flex space-x-2">
+                  <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    placeholder="Ask a question..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    onClick={handleSendMessage}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                  >
+                    {t('send')}
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <Notes classId={classData.id} userRole={userRole} />
-          )}
+            ) : (
+              <Notes classId={classData.id} userRole={userRole} />
+            )}
+          </div>
+
+          <div className="lg:hidden">
+            {activeTab === 'chat' ? (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                  <MessageSquare className="w-5 h-5" />
+                  <span>{t('chat')}</span>
+                </h3>
+                
+                <div className="h-64 overflow-y-auto mb-4 space-y-3">
+                  {chatMessages.map((msg, idx) => (
+                    <div key={idx} className="text-sm">
+                      <span className="font-medium text-blue-600">{msg.user}:</span>
+                      <span className="text-gray-700 ml-2">{msg.message}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex space-x-2">
+                  <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    placeholder="Ask a question..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    onClick={handleSendMessage}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                  >
+                    {t('send')}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Notes classId={classData.id} userRole={userRole} />
+            )}
+          </div>
         </div>
       </div>
     </div>
